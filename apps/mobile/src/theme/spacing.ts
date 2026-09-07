@@ -1,0 +1,28 @@
+export const spacing = {
+  0: 0,
+  1: 4,
+  2: 8,
+  3: 12,
+  4: 16,
+  5: 20,
+  6: 24,
+  7: 28,
+  8: 32,
+  9: 36,
+  10: 40,
+  11: 44,
+  12: 48,
+  14: 56,
+  16: 64,
+  20: 80,
+  24: 96,
+  none: 0,
+  xs: 4,
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 32,
+  xxl: 48,
+} as const;
+
+export type SpacingKey = keyof typeof spacing;

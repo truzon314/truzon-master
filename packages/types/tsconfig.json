@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@truzon/types/*": ["../types/src/*"],
+      "@truzon/validation/*": ["../validation/src/*"],
+      "@truzon/ui/*": ["../ui/src/*"],
+      "@truzon/api-client/*": ["../api-client/src/*"],
+      "@truzon/config/*": ["../config/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

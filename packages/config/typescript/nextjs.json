@@ -1,0 +1,29 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@truzon/types/*": ["../../packages/types/src/*"],
+      "@truzon/validation/*": ["../../packages/validation/src/*"],
+      "@truzon/ui/*": ["../../packages/ui/src/*"],
+      "@truzon/api-client/*": ["../../packages/api-client/src/*"],
+      "@truzon/config/*": ["../../packages/config/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

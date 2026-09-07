@@ -1,0 +1,31 @@
+{
+  "name": "@truzon/config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "exports": {
+    "./eslint/base.js": "./eslint/base.js",
+    "./eslint/base": "./eslint/base.js",
+    "./prettier/base.js": "./prettier/base.js",
+    "./prettier/base": "./prettier/base.js",
+    "./typescript/base.json": "./typescript/base.json",
+    "./typescript/nextjs.json": "./typescript/nextjs.json",
+    "./typescript/react-library.json": "./typescript/react-library.json",
+    "./tailwind/base.js": "./tailwind/base.js",
+    "./tailwind/base": "./tailwind/base.js"
+  },
+  "files": [
+    "eslint",
+    "prettier",
+    "typescript",
+    "tailwind"
+  ],
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  }
+}

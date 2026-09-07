@@ -1,0 +1,150 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: truzon-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: truzon
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - truzon-network
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: truzon-redis
+    command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD:-}"
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - truzon-network
+
+  # MinIO (S3-compatible storage for local development)
+  minio:
+    image: minio/minio:latest
+    container_name: truzon-minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    networks:
+      - truzon-network
+
+  # API Backend
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: truzon-api
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/truzon?schema=public
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_ACCESS_EXPIRY=15m
+      - JWT_REFRESH_EXPIRY=7d
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001,http://localhost:3002
+      - STORAGE_PROVIDER=LOCAL
+      - LOCAL_UPLOAD_DIR=./uploads
+      - LOCAL_PUBLIC_URL=http://localhost:3000/media-files
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./apps/api/uploads:/app/uploads
+    networks:
+      - truzon-network
+
+  # Admin Dashboard (Next.js)
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    container_name: truzon-admin
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:3000/api/v1
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+    networks:
+      - truzon-network
+
+  # Public Website (Next.js)
+  public-web:
+    build:
+      context: .
+      dockerfile: apps/public-web/Dockerfile
+    container_name: truzon-public-web
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:3000/api/v1
+      - NEXT_PUBLIC_CMS_URL=http://localhost:3000
+    ports:
+      - "3003:3003"
+    depends_on:
+      - api
+    networks:
+      - truzon-network
+
+  # Pro/CP App (Next.js)
+  pro-cp:
+    build:
+      context: .
+      dockerfile: apps/pro-cp/Dockerfile
+    container_name: truzon-pro-cp
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:3000/api/v1
+    ports:
+      - "3002:3002"
+    depends_on:
+      - api
+    networks:
+      - truzon-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+
+networks:
+  truzon-network:
+    driver: bridge

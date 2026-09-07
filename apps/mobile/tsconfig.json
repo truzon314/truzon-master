@@ -1,0 +1,30 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@truzon/types/*": [
+        "../../packages/types/src/*"
+      ],
+      "@truzon/validation/*": [
+        "../../packages/validation/src/*"
+      ],
+      "@truzon/ui/*": [
+        "../../packages/ui/src/*"
+      ],
+      "@truzon/api-client/*": [
+        "../../packages/api-client/src/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

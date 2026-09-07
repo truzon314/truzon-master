@@ -1,0 +1,15 @@
+{
+  "extends": "@truzon/config/typescript/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@truzon/types/*": ["../../packages/types/src/*"],
+      "@truzon/validation/*": ["../../packages/validation/src/*"],
+      "@truzon/ui/*": ["../../packages/ui/src/*"],
+      "@truzon/api-client/*": ["../../packages/api-client/src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

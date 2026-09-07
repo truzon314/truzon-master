@@ -1,0 +1,42 @@
+{
+  "name": "truzon",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "build:api": "turbo run build --filter=@truzon/api",
+    "build:web": "turbo run build --filter=@truzon/public-web --filter=@truzon/admin --filter=@truzon/pro-cp",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:unit": "turbo run test:unit",
+    "test:e2e": "turbo run test:e2e",
+    "db:generate": "turbo run db:generate --filter=@truzon/api",
+    "db:push": "turbo run db:push --filter=@truzon/api",
+    "db:migrate": "turbo run db:migrate --filter=@truzon/api",
+    "db:seed": "turbo run db:seed --filter=@truzon/api",
+    "db:studio": "turbo run db:studio --filter=@truzon/api",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md,yml,yaml}\"",
+    "clean": "turbo run clean && rm -rf node_modules .turbo",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@turbo/gen": "^1.13.4",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "turbo": "^1.13.4",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "pnpm@9.1.4",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

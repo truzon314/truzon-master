@@ -1,0 +1,60 @@
+{
+  "cli": {
+    "version": ">= 5.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "buildConfiguration": "Release"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
+        "buildConfiguration": "Release"
+      }
+    },
+    "production-homes": {
+      "extends": "production",
+      "env": {
+        "APP_VARIANT": "homes"
+      }
+    },
+    "production-pro": {
+      "extends": "production",
+      "env": {
+        "APP_VARIANT": "pro"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./google-play-service-account.json",
+        "track": "production"
+      },
+      "ios": {
+        "appleId": "your-apple-id@truzonhomes.com",
+        "ascAppId": "your-app-store-connect-app-id",
+        "appleTeamId": "YOUR_TEAM_ID"
+      }
+    }
+  }
+}

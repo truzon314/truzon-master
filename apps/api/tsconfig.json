@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022"],
+    "moduleResolution": "node",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@truzon/types/*": ["../../packages/types/src/*"],
+      "@truzon/validation/*": ["../../packages/validation/src/*"]
+    }
+  },
+  "include": ["src/**/*", "test/**/*", "prisma/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "Truzon",
+    "slug": "truzon-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f1c3a"
+    },
+    "updates": {
+      "enabled": false,
+      "checkAutomatically": "NEVER"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.truzon.mobile",
+      "infoPlist": {
+        "NSAppTransportSecurity": { "NSAllowsArbitraryLoads": true }
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0f1c3a"
+      },
+      "package": "com.truzon.mobile",
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.VIBRATE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-notifications",
+      ["expo-build-properties", { "android": { "usesCleartextTraffic": true } }]
+    ],
+    "experiments": { "typedRoutes": false }
+  }
+}
